@@ -15,3 +15,12 @@ list.prepend("meow");
 list.prepend("woof");
 
 console.log(list.toString());
+
+console.log(list.listSize());
+console.log(list.pop());
+console.log(list.listSize());
+console.log(list.listHead());
+console.log(list.listTail());
+console.log(list.at(5));
+console.log(list.contains("dog"));
+console.log(list.findIndex("dog"));
