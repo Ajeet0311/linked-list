@@ -1,127 +1,118 @@
-class Node{
-    constructor(){
-        this.value = null;
-        this.nextNode = null;
-    }
+class Node {
+  constructor() {
+    this.value = null;
+    this.nextNode = null;
+  }
 }
 
-export class LinkedList{
+export class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
 
-    constructor(){
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
+  append(value) {
+    const newNode = new Node();
+    newNode.value = value;
+
+    if (this.tail === null) {
+      this.head = newNode;
+    } else {
+      this.tail.nextNode = newNode;
     }
 
-    append(value){
+    this.tail = newNode;
+    this.size++;
+  }
 
-        const newNode = new Node();
-        newNode.value = value;
+  prepend(value) {
+    const newNode = new Node();
+    newNode.value = value;
 
-        if (this.tail === null){
-            this.head = newNode;
-        }
-        else{
-            this.tail.nextNode = newNode;
-        }
-
-        this.tail = newNode;
-        this.size++;
+    if (this.head === null) {
+      this.tail = newNode;
+    } else {
+      newNode.nextNode = this.head;
     }
 
-    prepend(value){
+    this.head = newNode;
+    this.size++;
+  }
 
-        const newNode = new Node();
-        newNode.value = value;
+  listSize() {
+    return this.size;
+  }
 
-        if (this.head === null){
-            this.tail = newNode;
-        }
-        else{
-            newNode.nextNode = this.head;
-        }
-        
-        this.head = newNode;
-        this.size++;
+  listHead() {
+    if (this.head === null) return undefined;
+    return this.head.value;
+  }
+
+  listTail() {
+    if (this.tail === null) return undefined;
+    return this.tail.value;
+  }
+
+  at(index) {
+    let i = 0;
+    let curNode = this.head;
+
+    while (i < index && curNode !== null) {
+      curNode = curNode.nextNode;
+      i++;
     }
 
-    listSize(){
-        return this.size;
+    if (curNode === null) return undefined;
+    return curNode.value;
+  }
+
+  pop() {
+    if (this.head === null) return undefined;
+
+    const val = this.head.value;
+    this.head = this.head.nextNode;
+    this.size--;
+    if (this.head === null) this.tail = null;
+
+    return val;
+  }
+
+  contains(value) {
+    let curNode = this.head;
+
+    while (curNode !== null) {
+      if (curNode.value === value) return true;
+      curNode = curNode.nextNode;
     }
 
-    listHead(){
-        if (this.head === null) return undefined;
-        return this.head.value;
+    return false;
+  }
+
+  findIndex(value) {
+    let ind = 0;
+    let curNode = this.head;
+
+    while (curNode !== null) {
+      if (curNode.value === value) return ind;
+
+      curNode = curNode.nextNode;
+      ind++;
     }
 
-    listTail(){
-        if (this.tail === null) return undefined;
-        return this.tail.value;
+    return -1;
+  }
+
+  toString() {
+    let curNode = this.head;
+    let str = "";
+
+    while (curNode !== null) {
+      str += `(${curNode.value}) -> `;
+      curNode = curNode.nextNode;
     }
 
-    at(index){
-
-        let i = 0;
-        let curNode = this.head;
-
-        while (i < index && curNode !== null){
-            curNode = curNode.nextNode;
-            i++;
-        }
-
-        if (curNode === null) return undefined;
-        return curNode.value;
-    }
-
-    pop(){
-        if (this.head === null) return undefined;
-
-        const val = this.head.value;
-        this.head = this.head.nextNode;
-        this.size--;
-        if (this.head === null) this.tail = null;
-
-        return val;
-    }
-
-    contains(value){
-
-        let curNode = this.head;
-
-        while (curNode !== null){
-            if (curNode.value === value) return true;
-            curNode = curNode.nextNode;
-        }
-
-        return false;
-    }
-
-    findIndex(value){
-
-        let ind = 0;
-        let curNode = this.head;
-
-        while (curNode !== null){
-            if (curNode.value === value) return ind;
-            
-            curNode = curNode.nextNode;
-            ind++;
-        }
-
-        return -1;
-    }
-
-    toString(){
-
-        let curNode = this.head;
-        let str = "";
-
-        while (curNode !== null){
-            str += `(${curNode.value}) -> `;
-            curNode = curNode.nextNode;
-        }
-
-        str += "null";
-        return str;
-    }
+    str += "null";
+    return str;
+  }
 }
